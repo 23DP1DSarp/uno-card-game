@@ -29,6 +29,7 @@ public class Main
     
 
     if (command.equals("singleplayer")) {
+        SinglePlayer singlePlayer = new SinglePlayer();
         ArrayList<Card> cards = new ArrayList<Card>();
         Random random = new Random();
         String[] colors = {"Green", "Blue", "Yellow", "Red"};
@@ -37,7 +38,15 @@ public class Main
         for(int i=0; i<10; i++){
 
             card = new Card(colors[random.nextInt(4)], numbers[random.nextInt(10)]);
-            cards.add(card);
+            singlePlayer.playerCards.add(card);
+            
+
+        }
+
+        for(int i=0; i<10; i++){
+
+            card = new Card(colors[random.nextInt(4)], numbers[random.nextInt(10)]);
+            singlePlayer.computerCards.add(card);
             
 
         }
@@ -57,8 +66,11 @@ public class Main
         }
             */
 
-            System.out.println("");
-            System.out.println(cards);
+            ArrayList<Card> playerCards = singlePlayer.getPlayerCards();
+            ArrayList<Card> computerCards = singlePlayer.getComputerCards();
+            System.out.println(playerCards);
+            System.out.println(playerCards);
+            singlePlayer.processCards();
     }
     else if (command.equals("multiplayer")) {
 
