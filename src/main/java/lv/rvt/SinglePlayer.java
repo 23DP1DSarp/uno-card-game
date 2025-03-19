@@ -23,9 +23,7 @@ public ArrayList<Card> getPlayerCards() {
     return computerCards;
   }
 
-public void processCards() {
-
-    while(true){
+public void processComputerCards() {
 
         for(int b=1; b < computerCards.size(); b++){
 
@@ -35,11 +33,19 @@ public void processCards() {
                 computerCards.remove(computerCards.get(b));
                 break;
 
-            }
+            } else if (computerCards.get(b).number == cards.get(b).number) {
 
+                cards.add(computerCards.get(b));
+                computerCards.remove(computerCards.get(b));
+                break;
+
+            } 
         }
-
-    }
+ 
 }
+
+
+
+
 
 }

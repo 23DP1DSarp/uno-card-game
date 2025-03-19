@@ -51,6 +51,11 @@ public class Main
 
         }
 
+
+
+
+
+
          /*  for(int a=0; a < cards.size(); a++){
             
             for(int b=1; b < cards.size(); b++){
@@ -69,8 +74,8 @@ public class Main
             ArrayList<Card> playerCards = singlePlayer.getPlayerCards();
             ArrayList<Card> computerCards = singlePlayer.getComputerCards();
             System.out.println(playerCards);
-            System.out.println(playerCards);
-            singlePlayer.processCards();
+            System.out.println(computerCards);
+            singlePlayer.processComputerCards();
     }
     else if (command.equals("multiplayer")) {
 
