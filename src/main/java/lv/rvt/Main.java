@@ -30,7 +30,6 @@ public class Main
 
     if (command.equals("singleplayer")) {
         SinglePlayer singlePlayer = new SinglePlayer();
-        ArrayList<Card> cards = new ArrayList<Card>();
         Random random = new Random();
         String[] colors = {"Green", "Blue", "Yellow", "Red"};
         int[] numbers = {0,1,2,3,4,5,6,7,8,9};
@@ -56,26 +55,24 @@ public class Main
 
 
 
-         /*  for(int a=0; a < cards.size(); a++){
-            
-            for(int b=1; b < cards.size(); b++){
-                if (cards.get(a).color.equals(cards.get(b).color) == true) {
-                    System.out.println(cards.get(a).color + cards.get(b).color);
-                    System.out.println(cards.get(a).number + " " + cards.get(b).number);
-                    
-                    
-                }
-                
-            }
-            
-        }
-            */
+        
 
             ArrayList<Card> playerCards = singlePlayer.getPlayerCards();
             ArrayList<Card> computerCards = singlePlayer.getComputerCards();
-            System.out.println(playerCards);
-            System.out.println(computerCards);
-            singlePlayer.processComputerCards();
+            ArrayList<Card> cards = singlePlayer.getCards();
+            
+            while (playerCards.size() != 0 || computerCards.size() != 0) {
+
+                singlePlayer.processPlayerCards();
+                System.out.println("Cards:" + cards);
+                singlePlayer.processComputerCards();
+                System.out.println("Cards:" + cards);
+
+            }
+            
+            
+            
+            
     }
     else if (command.equals("multiplayer")) {
 
