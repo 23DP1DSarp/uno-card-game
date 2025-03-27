@@ -31,7 +31,10 @@ public ArrayList<Card> getCards() {
 
 public void processComputerCards() {
 
-        System.out.println("Computer's cards " + computerCards);
+        System.out.print("\nComputer's cards: ");
+        computerCards.forEach( (n) -> {System.out.print(String.valueOf(computerCards.indexOf(n) + 1) + ". " + n + "  "); } );
+
+        //System.out.println("Computer's cards " + computerCards);
 
         for(int b=0; b < computerCards.size(); b++){
 
@@ -53,12 +56,21 @@ public void processComputerCards() {
 }
 
 public void processPlayerCards() {
+    
+    System.out.print("\nPlayer's cards: ");
+    playerCards.forEach( (n) -> {System.out.print(String.valueOf(playerCards.indexOf(n) + 1) + ". " + n + "  "); } );
+    //System.out.println("Player's cards: " + playerCards);
 
-    System.out.println("Player's cards: " + playerCards);
-
-    System.out.println("Enter the cards number:");
+    System.out.println("\nEnter the cards number:");
     int playerCardString = Integer.valueOf(playerScanner.nextLine());
 
+      while (playerCardString <= 0 || playerCardString > playerCards.size()) {
+        System.out.println("Please enter value from 1 to " + playerCards.size());
+        playerCardString = Integer.valueOf(playerScanner.nextLine());
+      }
+    
+
+    playerCardString = playerCardString - 1;
 
     if (cards.size() == 0) {
 

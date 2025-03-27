@@ -64,10 +64,11 @@ public class Main
             while (playerCards.size() != 0 || computerCards.size() != 0) {
 
                 singlePlayer.processPlayerCards();
-                System.out.println("Cards:" + cards);
+                System.out.print("\nCards: ");
+                cards.forEach( (n) -> {System.out.print(String.valueOf(cards.indexOf(n) + 1) + ". " + n + "  "); } );
                 singlePlayer.processComputerCards();
-                System.out.println("Cards:" + cards);
-
+                System.out.print("\nCards: ");
+                cards.forEach( (n) -> {System.out.print(String.valueOf(cards.indexOf(n) + 1) + ". " + n + "  "); } );
             }
             
             
