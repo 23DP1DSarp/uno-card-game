@@ -35,7 +35,7 @@ public void processComputerCards() {
 
         for(int b=0; b < computerCards.size(); b++){
 
-            if (computerCards.get(b).color.equals(cards.get(cards.size() - 1).color)) {
+            if (computerCards.get(b).color == cards.get(cards.size() - 1).color) {
 
                 cards.add(computerCards.get(b));
                 computerCards.remove(computerCards.get(b));
@@ -57,23 +57,23 @@ public void processPlayerCards() {
     System.out.println("Player's cards: " + playerCards);
 
     System.out.println("Enter the cards number:");
-    String playerCardString = playerScanner.nextLine();
+    int playerCardString = Integer.valueOf(playerScanner.nextLine());
 
 
     if (cards.size() == 0) {
 
-      cards.add(playerCards.get(Integer.valueOf(playerCardString)));
-      playerCards.remove(playerCards.get(Integer.valueOf(playerCardString)));
+      cards.add(playerCards.get(playerCardString));
+      playerCards.remove(playerCards.get(playerCardString));
 
-    } else if (playerCards.get(Integer.valueOf(playerCardString)).color.equals(cards.get(cards.size() - 1).color)) {
+    } else if (playerCards.get(playerCardString).color == cards.get(cards.size() - 1).color) {
 
-      cards.add(playerCards.get(Integer.valueOf(playerCardString)));
-      playerCards.remove(playerCards.get(Integer.valueOf(playerCardString)));
+      cards.add(playerCards.get(playerCardString));
+      playerCards.remove(playerCards.get(playerCardString));
 
-    } else if (playerCards.get(Integer.valueOf(playerCardString)).number == cards.get(cards.size() - 1).number) {
+    } else if (playerCards.get(playerCardString).number == cards.get(cards.size() - 1).number) {
 
-      cards.add(playerCards.get(Integer.valueOf(playerCardString)));
-      playerCards.remove(playerCards.get(Integer.valueOf(playerCardString)));
+      cards.add(playerCards.get(playerCardString));
+      playerCards.remove(playerCards.get(playerCardString));
 
     } else {
 
