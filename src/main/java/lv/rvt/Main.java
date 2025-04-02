@@ -34,6 +34,7 @@ public class Main
         String[] colors = {"Green", "Blue", "Yellow", "Red"};
         int[] numbers = {0,1,2,3,4,5,6,7,8,9};
         Card card;
+        System.out.println( ConsoleColors.RED + "RED COLORED" + ConsoleColors.RESET + " NORMAL" );
         for(int i=0; i<10; i++){
 
             card = new Card(colors[random.nextInt(4)], numbers[random.nextInt(10)]);

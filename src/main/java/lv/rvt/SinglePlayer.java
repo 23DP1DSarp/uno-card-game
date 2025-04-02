@@ -50,7 +50,9 @@ public void processComputerCards() {
                 computerCards.remove(computerCards.get(b));
                 break;
 
-            } 
+            } else {
+              
+            }
         }
  
 }
@@ -93,6 +95,22 @@ public void processPlayerCards() {
 
     } 
 }
+
+
+/*public void randomCards() {
+
+  while(){
+
+    card = new Card(colors[random.nextInt(4)], numbers[random.nextInt(10)]);
+    singlePlayer.playerCards.add(card);
+    
+
+}
+
+}*/
+
+
+
 }
 
 
