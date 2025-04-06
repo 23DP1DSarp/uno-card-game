@@ -57,22 +57,25 @@ public static void mainGame(){
             
             while (true) {
                 
+                singlePlayer.playerHasValidMove();
+
                 singlePlayer.processPlayerCards();
                 System.out.print("\nCards: ");
                 cards.forEach( (n) -> {System.out.print(String.valueOf(cards.indexOf(n) + 1) + ". " + n + "  "); } );
                 
 
                 if (playerCards.size() == 0) {
-                    System.out.println("Player 1 won!");
+                    System.out.println("\nPlayer 1 won!");
                     break;
                   }
 
+                singlePlayer.computerHasValidMove();
                 singlePlayer.processComputerCards();
                 System.out.print("\nCards: ");
                 cards.forEach( (n) -> {System.out.print(String.valueOf(cards.indexOf(n) + 1) + ". " + n + "  "); } );
 
                 if (computerCards.size() == 0) {
-                    System.out.println("Computer won!");
+                    System.out.println("\nComputer won!");
                     break;
                   }
 

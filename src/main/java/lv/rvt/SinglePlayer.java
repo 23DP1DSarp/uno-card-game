@@ -47,12 +47,14 @@ public void processComputerCards() {
 
         for(int b=0; b < computerCards.size(); b++){
 
-          if (!computerHasValidMove()) {
+          /*if (!computerHasValidMove()) {
 
             System.out.println("\nComputer has no valid cards, drawing a new one...");
             drawCardUntilValid(computerCards);
 
-          } else if (computerCards.get(b).color == cards.get(cards.size() - 1).color) {
+          } else */
+           
+          if (computerCards.get(b).color == cards.get(cards.size() - 1).color) {
 
                 cards.add(computerCards.get(b));
                 computerCards.remove(computerCards.get(b));
@@ -86,12 +88,7 @@ public void processPlayerCards() {
 
     playerCardString = playerCardString - 1;
 
-    if (!playerHasValidMove()) {
-
-      System.out.println("\nYou have no valid cards, drawing a new one...");
-      drawCardUntilValid(playerCards);
-
-    } else if (cards.size() == 0) {
+    if (cards.size() == 0) {
 
       cards.add(playerCards.get(playerCardString));
       playerCards.remove(playerCards.get(playerCardString));
@@ -123,28 +120,51 @@ public void processPlayerCards() {
 
 }*/
 
-public boolean computerHasValidMove() {
-  if (cards.isEmpty()) return true; // Any card is valid if no previous card exists
+public void computerHasValidMove() {
+
+  int validCards = 0;
+
+  if (!cards.isEmpty()){
 
   Card lastCard = cards.get(cards.size() - 1);
-  for (Card card : computerCards) {
+
+  for (Card card : playerCards) {
+
       if (card.color.equals(lastCard.color) || card.number == lastCard.number) {
-          return true;
-      }
+          validCards +=1;
+      } 
+
   }
-  return false;
+
+  if (validCards == 0) {
+    drawCardUntilValid(computerCards);
+  }
+  
+  }
 }
 
-public boolean playerHasValidMove() {
-  if (cards.isEmpty()) return true; // Any card is valid if no previous card exists
+public void playerHasValidMove() {
+  
+  int validCards = 0;
+
+  if (!cards.isEmpty()){
 
   Card lastCard = cards.get(cards.size() - 1);
+
   for (Card card : playerCards) {
+
       if (card.color.equals(lastCard.color) || card.number == lastCard.number) {
-          return true;
-      }
+          validCards +=1;
+      } 
+
   }
-  return false;
+
+  if (validCards == 0) {
+    drawCardUntilValid(playerCards);
+  }
+  
+  }
+
 }
 
 public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
@@ -158,7 +178,7 @@ public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
       // Check if the new card is valid
       if (newCard.color.equals(lastCard.color) || newCard.number == lastCard.number) {
           targetPlayerCards.add(newCard);
-          System.out.println("Drawn valid card: " + newCard);
+          System.out.println("\nDrawn valid card: " + newCard);
           break;
       }
   }
