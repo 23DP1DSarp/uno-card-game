@@ -43,16 +43,7 @@ public void processComputerCards() {
         System.out.print("\nComputer's cards: ");
         computerCards.forEach( (n) -> {System.out.print(String.valueOf(computerCards.indexOf(n) + 1) + ". " + n + "  "); } );
 
-        //System.out.println("Computer's cards " + computerCards);
-
         for(int b=0; b < computerCards.size(); b++){
-
-          /*if (!computerHasValidMove()) {
-
-            System.out.println("\nComputer has no valid cards, drawing a new one...");
-            drawCardUntilValid(computerCards);
-
-          } else */
            
           if (computerCards.get(b).color == cards.get(cards.size() - 1).color) {
 
@@ -75,7 +66,6 @@ public void processPlayerCards() {
     
     System.out.print("\nPlayer's cards: ");
     playerCards.forEach( (n) -> {System.out.print(String.valueOf(playerCards.indexOf(n) + 1) + ". " + n + "  "); } );
-    //System.out.println("Player's cards: " + playerCards);
 
     System.out.println("\nEnter the cards number:");
     int playerCardString = Integer.valueOf(playerScanner.nextLine());
@@ -107,19 +97,6 @@ public void processPlayerCards() {
 }
 
 
-/*public void randomPlayerCards() {
-
-  while(playerCards.get(playerCards.size() - 1).color == cards.get(cards.size() - 1).color || playerCards.get(playerCards.size() - 1).number == cards.get(cards.size() - 1).number){
-
-    card = new SinglePlayer(colors[random.nextInt(4)], numbers[random.nextInt(10)]);
-    playerCards.add(card);
-    
-    
-
-}
-
-}*/
-
 public void computerHasValidMove() {
 
   int validCards = 0;
@@ -128,7 +105,7 @@ public void computerHasValidMove() {
 
   Card lastCard = cards.get(cards.size() - 1);
 
-  for (Card card : playerCards) {
+  for (Card card : computerCards) {
 
       if (card.color.equals(lastCard.color) || card.number == lastCard.number) {
           validCards +=1;
@@ -169,17 +146,20 @@ public void playerHasValidMove() {
 
 public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
   while (true) {
-      // Generate a new card
+      
       Card newCard = new Card(colors[random.nextInt(colors.length)], numbers[random.nextInt(numbers.length)]);
 
-      // Get the last card from the played cards
+      
       Card lastCard = cards.get(cards.size() - 1);
 
-      // Check if the new card is valid
+      
       if (newCard.color.equals(lastCard.color) || newCard.number == lastCard.number) {
           targetPlayerCards.add(newCard);
           System.out.println("\nDrawn valid card: " + newCard);
           break;
+      } else {
+          targetPlayerCards.add(newCard);
+          System.out.println("\nDrawn valid card: " + newCard);
       }
   }
 }
