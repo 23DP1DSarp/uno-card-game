@@ -69,31 +69,59 @@ public void processPlayerCards() {
 
     System.out.println("\nEnter the cards number:");
     int playerCardString = Integer.valueOf(playerScanner.nextLine());
-
-      while (playerCardString <= 0 || playerCardString > playerCards.size()) {
-        System.out.println("Please enter value from 1 to " + playerCards.size());
-        playerCardString = Integer.valueOf(playerScanner.nextLine());
-      }
+    
+    
     
 
-    playerCardString = playerCardString - 1;
 
-    if (cards.size() == 0) {
-
-      cards.add(playerCards.get(playerCardString));
-      playerCards.remove(playerCards.get(playerCardString));
-
-    } else if (playerCards.get(playerCardString).color == cards.get(cards.size() - 1).color) {
-
-      cards.add(playerCards.get(playerCardString));
-      playerCards.remove(playerCards.get(playerCardString));
-
-    } else if (playerCards.get(playerCardString).number == cards.get(cards.size() - 1).number) {
-
-      cards.add(playerCards.get(playerCardString));
-      playerCards.remove(playerCards.get(playerCardString));
-
+    while (playerCardString <= 0 || playerCardString > playerCards.size()) {
+      System.out.println("Please enter value from 1 to " + playerCards.size());
+      System.out.println("\nEnter the cards number:");
+      playerCardString = Integer.valueOf(playerScanner.nextLine());
     }
+
+    playerCardString = playerCardString - 1;
+    
+    
+
+    while (true) {
+
+      if (playerCardString < 0 || playerCardString > playerCards.size()){
+
+        System.out.println("Please enter value from 1 to " + playerCards.size());
+        System.out.println("\nEnter the cards number:");
+        playerCardString = Integer.valueOf(playerScanner.nextLine());
+        playerCardString = playerCardString - 1;
+
+      } else if (cards.size() == 0) {
+
+        cards.add(playerCards.get(playerCardString));
+        playerCards.remove(playerCards.get(playerCardString));
+        break;
+
+      } else if (playerCards.get(playerCardString).color == cards.get(cards.size() - 1).color) {
+
+        cards.add(playerCards.get(playerCardString));
+        playerCards.remove(playerCards.get(playerCardString));
+        break;
+
+      } else if (playerCards.get(playerCardString).number == cards.get(cards.size() - 1).number) {
+
+        cards.add(playerCards.get(playerCardString));
+        playerCards.remove(playerCards.get(playerCardString));
+        break;
+
+      } else {
+
+          System.out.println("\nYou can use only cards with the same color or number.");
+          System.out.println("\nEnter the cards number:");
+          playerCardString = Integer.valueOf(playerScanner.nextLine());
+          playerCardString = playerCardString - 1;
+        
+      }
+    }
+      
+    
 }
 
 
