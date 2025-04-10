@@ -14,6 +14,20 @@ public class Card {
 
     @Override
     public String toString() {
+
+        switch (color) {
+            case "Red":
+                return ConsoleColors.RED + color + " " + number + ConsoleColors.RESET;
+        
+            case "Blue":
+                return ConsoleColors.BLUE + color + " " + number + ConsoleColors.RESET;
+            
+            case "Green":
+                return ConsoleColors.GREEN + color + " " + number + ConsoleColors.RESET;
+
+            case "Yellow":
+                return ConsoleColors.YELLOW + color + " " + number + ConsoleColors.RESET;
+        }
         
         return color + " " + number;
         
