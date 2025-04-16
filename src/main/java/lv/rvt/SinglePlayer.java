@@ -40,9 +40,6 @@ public ArrayList<Card> getCards() {
 
 public void processComputerCards() {
 
-        System.out.print("\nComputer's cards: ");
-        computerCards.forEach( (n) -> {System.out.print(String.valueOf(computerCards.indexOf(n) + 1) + ". " + n + "  "); } );
-
         for(int b=0; b < computerCards.size(); b++){
            
           if (computerCards.get(b).color == cards.get(cards.size() - 1).color) {
@@ -81,8 +78,9 @@ public void processPlayerCards() {
     }
 
     playerCardString = playerCardString - 1;
-    
-    
+
+
+
 
     while (true) {
 
@@ -148,6 +146,7 @@ public void computerHasValidMove() {
   }
 }
 
+
 public void playerHasValidMove() {
   
   int validCards = 0;
@@ -193,7 +192,29 @@ public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
 }
 
 
-  
+public int pointCounterComputerCards() {
+
+    int points = 0;
+
+      for (Card card : computerCards) {
+        points = points + card.number;
+      }
+
+    return points;
+}
+
+
+
+public int pointCounterPlayerCards() {
+
+    int points = 0;
+
+      for (Card card : playerCards) {
+        points = points + card.number;
+      }
+
+    return points;
+}
 
 
 }

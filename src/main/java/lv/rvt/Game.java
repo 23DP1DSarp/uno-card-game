@@ -11,9 +11,9 @@ public static void mainGame(){
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("Hello, choose your command: ");
-    System.out.println("singleplayer - start the singleplayer mode");
-    System.out.println("multiplayer - start the multiplayer mode");
-    System.out.println("exit - exit the game\n");
+    System.out.println("\nS - start the singleplayer mode");
+    System.out.println("M - start the multiplayer mode");
+    System.out.println("E - exit the game\n");
     
 
     while (true) {
@@ -21,13 +21,14 @@ public static void mainGame(){
         String command = scanner.nextLine();
     
 
-    if (command.equals("singleplayer")) {
+    if (command.equals("S")) {
         SinglePlayer singlePlayer = new SinglePlayer();
         Random random = new Random();
         String[] colors = {"Green", "Blue", "Yellow", "Red"};
         int[] numbers = {0,1,2,3,4,5,6,7,8,9};
         Card card;
-        System.out.println( ConsoleColors.RED + "RED COLORED" + ConsoleColors.RESET + " NORMAL" );
+        
+
         for(int i=0; i<10; i++){
 
             card = new Card(colors[random.nextInt(4)], numbers[random.nextInt(10)]);
@@ -46,11 +47,6 @@ public static void mainGame(){
 
 
 
-
-
-
-        
-
             ArrayList<Card> playerCards = singlePlayer.getPlayerCards();
             ArrayList<Card> computerCards = singlePlayer.getComputerCards();
             ArrayList<Card> cards = singlePlayer.getCards();
@@ -61,23 +57,24 @@ public static void mainGame(){
 
                 singlePlayer.processPlayerCards();
                 System.out.print("\nCards: ");
-                cards.forEach( (n) -> {System.out.print(String.valueOf(cards.indexOf(n) + 1) + ". " + n + "  "); } );
+                System.out.println(cards.getLast());
                 
 
                 if (playerCards.size() == 0) {
-                    System.out.println("\nPlayer 1 won!");
+                    System.out.println("\nPlayer won!");
                     break;
                   }
 
                 singlePlayer.computerHasValidMove();
                 singlePlayer.processComputerCards();
                 System.out.print("\nCards: ");
-                cards.forEach( (n) -> {System.out.print(String.valueOf(cards.indexOf(n) + 1) + ". " + n + "  "); } );
+                System.out.println(cards.getLast());
 
                 if (computerCards.size() == 0) {
                     System.out.println("\nComputer won!");
                     break;
                   }
+            
 
             }
             
@@ -85,26 +82,23 @@ public static void mainGame(){
             
             
     }
-    else if (command.equals("multiplayer")) {
+    else if (command.equals("M")) {
 
         System.out.println("\nComming soon!");
     
     }
-    else if (command.equals("exit")) {
+    else if (command.equals("E")) {
         scanner.close();
         break;
-    } 
-    else if (command.equals("help")){
-        System.out.println("Hello, choose your command: ");
-        System.out.println("singleplayer - start the singleplayer mode");
-        System.out.println("multiplayer - start the multiplayer mode");
-        System.out.println("exit - exit the game");
+    }
+    else {
+        System.out.println("Please enter S , M or E");
     }
     
 
-    System.out.println("\nsingleplayer - start the singleplayer mode");
-    System.out.println("multiplayer - start the multiplayer mode");
-    System.out.println("exit - exit the game\n");
+    System.out.println("\nS - start the singleplayer mode");
+    System.out.println("M - start the multiplayer mode");
+    System.out.println("E - exit the game\n");
 }
     
     
