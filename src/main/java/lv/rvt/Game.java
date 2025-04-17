@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import lv.rvt.tools.Helper;
+
 public class Game {
 
 public static void mainGame(){
@@ -62,6 +64,7 @@ public static void mainGame(){
 
                 if (playerCards.size() == 0) {
                     System.out.println("\nPlayer won!");
+                    Helper.recordTable();
                     break;
                   }
 
@@ -72,6 +75,7 @@ public static void mainGame(){
 
                 if (computerCards.size() == 0) {
                     System.out.println("\nComputer won!");
+                    Helper.recordTable();
                     break;
                   }
             

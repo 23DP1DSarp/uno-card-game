@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Helper {
@@ -26,5 +28,37 @@ public class Helper {
             throw new FileNotFoundException("File not found: " + filename);
         }
         return filePath;
+    }
+
+
+    public static List<String[]> readCsv(String filename) throws IOException {
+        List<String[]> rows = new ArrayList<>();
+        try (BufferedReader reader = getReader(filename)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                
+                String[] values = line.split(",");
+                for (int i = 0; i < values.length; i++) {
+                    values[i] = values[i].trim();
+                }
+                rows.add(values);
+            }
+        }
+        return rows;
+    }
+
+
+    public static void recordTable(){
+        {
+    
+            try {
+                List<String[]> data = Helper.readCsv("data.csv");
+                for (String[] row : data) {
+                    System.out.println(String.join(" | ", row));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
