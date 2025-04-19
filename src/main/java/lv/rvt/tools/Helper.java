@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -61,4 +62,38 @@ public class Helper {
             }
         }
     }
+
+    public static void writeCsv(String filename, ArrayList<ArrayList<String>> rows, StandardOpenOption... options) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(getFilePath(filename), StandardCharsets.UTF_8, options)) {
+            for (ArrayList<String> row : rows) {
+                String line = String.join(",", escapeCsvFields(row));
+                writer.write(line);
+                writer.newLine();
+            }
+            writer.close();
+        }
+    }
+
+    public static void writeRecordTableForRound(String filename, ArrayList<ArrayList<String>> rows, StandardOpenOption option) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(getFilePath(filename), StandardCharsets.UTF_8, option)) {
+            for (ArrayList<String> row : rows) {
+                String line = String.join(",", escapeCsvFields(row));
+                writer.write(line);
+                writer.newLine();
+            }
+            writer.close();
+        }
+    }
+
+    private static List<String> escapeCsvFields(ArrayList<String> row) {
+    List<String> escaped = new ArrayList<>();
+    for (String field : row) {
+        if (field.contains(",") || field.contains("\"") || field.contains("\n")) {
+            field = field.replace("\"", "\"\"");
+            field = "\"" + field + "\"";
+        }
+        escaped.add(field);
+    }
+    return escaped;
+}
 }

@@ -64,6 +64,7 @@ public static void mainGame(){
 
                 if (playerCards.size() == 0) {
                     System.out.println("\nPlayer won!");
+                    singlePlayer.writingIntoRecordTable();
                     Helper.recordTable();
                     break;
                   }
@@ -75,6 +76,7 @@ public static void mainGame(){
 
                 if (computerCards.size() == 0) {
                     System.out.println("\nComputer won!");
+                    singlePlayer.writingIntoRecordTable();
                     Helper.recordTable();
                     break;
                   }

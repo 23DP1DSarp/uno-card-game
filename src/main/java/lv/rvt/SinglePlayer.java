@@ -1,13 +1,20 @@
 package lv.rvt;
 
+import java.io.IOException;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import lv.rvt.tools.Helper;
 
 public class SinglePlayer {
 
 
 Scanner playerScanner = new Scanner(System.in);
+
+Scanner playerNameString = new Scanner(System.in);
 
 ArrayList<Card> playerCards = new ArrayList<Card>();
 
@@ -23,6 +30,10 @@ int[] numbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 Random random = new Random();
 
 Card card;
+
+int computerPoints = 0;
+
+int playerPoints = 0;
 
 public ArrayList<Card> getPlayerCards() {
     return playerCards;
@@ -40,16 +51,20 @@ public ArrayList<Card> getCards() {
 
 public void processComputerCards() {
 
+        
+
         for(int b=0; b < computerCards.size(); b++){
            
           if (computerCards.get(b).color == cards.get(cards.size() - 1).color) {
-
+                
+              computerPoints = computerPoints + computerCards.get(b).number;
                 cards.add(computerCards.get(b));
                 computerCards.remove(computerCards.get(b));
                 break;
 
           } else if (computerCards.get(b).number == cards.get(cards.size() - 1).number) {
 
+                computerPoints = computerPoints + computerCards.get(b).number;
                 cards.add(computerCards.get(b));
                 computerCards.remove(computerCards.get(b));
                 break;
@@ -93,18 +108,21 @@ public void processPlayerCards() {
 
       } else if (cards.size() == 0) {
 
+        playerPoints = playerPoints + playerCards.get(playerCardString).number;
         cards.add(playerCards.get(playerCardString));
         playerCards.remove(playerCards.get(playerCardString));
         break;
 
       } else if (playerCards.get(playerCardString).color == cards.get(cards.size() - 1).color) {
 
+        playerPoints = playerPoints + playerCards.get(playerCardString).number;
         cards.add(playerCards.get(playerCardString));
         playerCards.remove(playerCards.get(playerCardString));
         break;
 
       } else if (playerCards.get(playerCardString).number == cards.get(cards.size() - 1).number) {
 
+        playerPoints = playerPoints + playerCards.get(playerCardString).number;
         cards.add(playerCards.get(playerCardString));
         playerCards.remove(playerCards.get(playerCardString));
         break;
@@ -192,28 +210,41 @@ public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
 }
 
 
-public int pointCounterComputerCards() {
-
-    int points = 0;
-
-      for (Card card : computerCards) {
-        points = points + card.number;
-      }
-
-    return points;
-}
 
 
+public void writingIntoRecordTable() {
+    ArrayList<ArrayList<String>> dataToWrite = new ArrayList<>();
 
-public int pointCounterPlayerCards() {
 
-    int points = 0;
+    System.out.println("player" + playerPoints);
+    System.out.println("Computer" + computerPoints);
+    
+    ArrayList<String> row1 = new ArrayList<>();
+    row1.add("Computer");
+    row1.add(String.valueOf(computerPoints));
+    dataToWrite.add(row1);
 
-      for (Card card : playerCards) {
-        points = points + card.number;
-      }
+    
+    System.out.println("Enter your name:");
+    String playerName = playerNameString.nextLine();
 
-    return points;
+    String score = String.valueOf(String.valueOf(playerPoints));
+
+    ArrayList<String> row2 = new ArrayList<>();
+    row2.add(playerName);
+    row2.add(score);
+    dataToWrite.add(row2);
+
+   try {
+
+        ArrayList<ArrayList<String>> header = new ArrayList<>();
+        header.add(new ArrayList<>(List.of("Name", "Points")));
+        Helper.writeRecordTableForRound("data.csv", header, StandardOpenOption.CREATE);
+        Helper.writeRecordTableForRound("data.csv", dataToWrite, StandardOpenOption.APPEND);
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
 }
 
 

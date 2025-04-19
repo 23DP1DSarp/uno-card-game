@@ -1,9 +1,5 @@
 package lv.rvt;
 
-//import java.util.*;
-
-//import javax.smartcardio.Card;
-
 public class Main 
 {
 
@@ -13,7 +9,6 @@ public class Main
     
    public static void main(String[] args) throws Exception{
            
-        
     Game game = new Game();
     Game.mainGame();
 
