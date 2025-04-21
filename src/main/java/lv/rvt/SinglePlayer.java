@@ -213,13 +213,17 @@ public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
 
 
 public void writingIntoRecordTable() {
+    
     ArrayList<ArrayList<String>> dataToWrite = new ArrayList<>();
 
+    dataToWrite.clear();
 
     System.out.println("player" + playerPoints);
     System.out.println("Computer" + computerPoints);
     
     ArrayList<String> row1 = new ArrayList<>();
+    row1.clear();
+
     row1.add("Computer");
     row1.add(String.valueOf(computerPoints));
     dataToWrite.add(row1);
@@ -231,6 +235,8 @@ public void writingIntoRecordTable() {
     String score = String.valueOf(String.valueOf(playerPoints));
 
     ArrayList<String> row2 = new ArrayList<>();
+    row2.clear();
+
     row2.add(playerName);
     row2.add(score);
     dataToWrite.add(row2);
@@ -238,9 +244,11 @@ public void writingIntoRecordTable() {
    try {
 
         ArrayList<ArrayList<String>> header = new ArrayList<>();
+        header.clear();
+
         header.add(new ArrayList<>(List.of("Name", "Points")));
-        Helper.writeRecordTableForRound("data.csv", header, StandardOpenOption.CREATE);
-        Helper.writeRecordTableForRound("data.csv", dataToWrite, StandardOpenOption.APPEND);
+        Helper.writeRecordTableForRound("SinglePlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Helper.writeRecordTableForRound("SinglePlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
 
     } catch (IOException e) {
         e.printStackTrace();

@@ -49,11 +49,11 @@ public class Helper {
     }
 
 
-    public static void recordTable(){
+    public static void recordTable(String filename){
         {
     
             try {
-                List<String[]> data = Helper.readCsv("data.csv");
+                List<String[]> data = Helper.readCsv(filename);
                 for (String[] row : data) {
                     System.out.println(String.join(" | ", row));
                 }
@@ -74,8 +74,8 @@ public class Helper {
         }
     }
 
-    public static void writeRecordTableForRound(String filename, ArrayList<ArrayList<String>> rows, StandardOpenOption option) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(getFilePath(filename), StandardCharsets.UTF_8, option)) {
+    public static void writeRecordTableForRound(String filename, ArrayList<ArrayList<String>> rows, StandardOpenOption... options) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(getFilePath(filename), StandardCharsets.UTF_8, options)) {
             for (ArrayList<String> row : rows) {
                 String line = String.join(",", escapeCsvFields(row));
                 writer.write(line);
