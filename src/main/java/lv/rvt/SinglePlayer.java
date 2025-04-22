@@ -35,6 +35,8 @@ int computerPoints = 0;
 
 int playerPoints = 0;
 
+int playerWinCount = 0;
+
 public ArrayList<Card> getPlayerCards() {
     return playerCards;
   }
@@ -200,11 +202,11 @@ public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
       
       if (newCard.color.equals(lastCard.color) || newCard.number == lastCard.number) {
           targetPlayerCards.add(newCard);
-          System.out.println("\nDrawn valid card: " + newCard);
+          //System.out.println("\nDrawn valid card: " + newCard);
           break;
       } else {
           targetPlayerCards.add(newCard);
-          System.out.println("\nDrawn valid card: " + newCard);
+          //System.out.println("\nDrawn valid card: " + newCard);
       }
   }
 }
@@ -234,19 +236,29 @@ public void writingIntoRecordTable() {
 
     String score = String.valueOf(String.valueOf(playerPoints));
 
+    String wins = String.valueOf(String.valueOf(playerWinCount));
+
+
     ArrayList<String> row2 = new ArrayList<>();
     row2.clear();
 
     row2.add(playerName);
     row2.add(score);
+    row2.add(wins);
     dataToWrite.add(row2);
+
+    dataToWrite.sort((a, b) -> {
+      int pointsA = Integer.parseInt(a.get(1));
+      int pointsB = Integer.parseInt(b.get(1));
+      return Integer.compare(pointsB, pointsA);
+  });
 
    try {
 
         ArrayList<ArrayList<String>> header = new ArrayList<>();
         header.clear();
 
-        header.add(new ArrayList<>(List.of("Name", "Points")));
+        header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
         Helper.writeRecordTableForRound("SinglePlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         Helper.writeRecordTableForRound("SinglePlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
 

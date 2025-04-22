@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 
 public class Helper {
@@ -50,16 +51,17 @@ public class Helper {
 
 
     public static void recordTable(String filename){
-        {
+        try {
+            List<String[]> data = Helper.readCsv(filename);
+
+            String[] headers = data.get(0);
+            List<String[]> rows = data.subList(1, data.size());
     
-            try {
-                List<String[]> data = Helper.readCsv(filename);
-                for (String[] row : data) {
-                    System.out.println(String.join(" | ", row));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Format and print table
+            printFormattedTable(rows, headers);
+    
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -96,4 +98,52 @@ public class Helper {
     }
     return escaped;
 }
+
+
+public static void printFormattedTable(List<String[]> rows, String[] headers) {
+    int columns = headers.length;
+    int[] colWidths = new int[columns];
+
+    
+    for (int i = 0; i < columns; i++) {
+        colWidths[i] = headers[i].length();
+    }
+
+    for (String[] row : rows) {
+        for (int i = 0; i < columns; i++) {
+            if (i < row.length && row[i] != null) {
+                colWidths[i] = Math.max(colWidths[i], row[i].length());
+            }
+        }
+    }
+
+    
+    Consumer<String[]> printRow = row -> {
+        System.out.print("|");
+        for (int i = 0; i < columns; i++) {
+            String value = i < row.length ? row[i] : "";
+            System.out.print(" " + padRight(value, colWidths[i]) + " |");
+        }
+        System.out.println();
+    };
+
+    printRow.accept(headers);
+
+   
+    System.out.print("|");
+    for (int width : colWidths) {
+        System.out.print("-".repeat(width + 2) + "|");
+    }
+    System.out.println();
+
+    
+    for (String[] row : rows) {
+        printRow.accept(row);
+    }
+}
+
+private static String padRight(String text, int width) {
+    return String.format("%-" + width + "s", text);
+}
+
 }

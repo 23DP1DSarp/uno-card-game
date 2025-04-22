@@ -64,6 +64,7 @@ public static void mainGame(){
 
                 if (playerCards.size() == 0) {
                     System.out.println("\nPlayer won!");
+                    singlePlayer.playerWinCount += 1;
                     singlePlayer.writingIntoRecordTable();
                     Helper.recordTable("SinglePlayerTable.csv");
                     break;
