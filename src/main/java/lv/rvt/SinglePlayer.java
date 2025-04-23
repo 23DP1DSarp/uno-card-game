@@ -16,6 +16,8 @@ Scanner playerScanner = new Scanner(System.in);
 
 Scanner playerNameString = new Scanner(System.in);
 
+String playerInput = "";
+
 ArrayList<Card> playerCards = new ArrayList<Card>();
 
 ArrayList<Card> computerCards = new ArrayList<Card>();
@@ -82,24 +84,43 @@ public void processPlayerCards() {
     playerCards.forEach( (n) -> {System.out.print(String.valueOf(playerCards.indexOf(n) + 1) + ". " + n + "  "); } );
 
     System.out.println("\nEnter the cards number:");
-    int playerCardString = Integer.valueOf(playerScanner.nextLine());
-    
-    
-    
+    playerInput = playerScanner.nextLine();
 
-
-    while (playerCardString <= 0 || playerCardString > playerCards.size()) {
-      System.out.println("Please enter value from 1 to " + playerCards.size());
-      System.out.println("\nEnter the cards number:");
-      playerCardString = Integer.valueOf(playerScanner.nextLine());
+    while (playerInput.isBlank()) {
+      System.out.println("\nDon't enter letters or empty lines:");
+      playerInput = playerScanner.nextLine();
     }
 
+
+    int playerCardString = Integer.valueOf(playerInput);
+    
+    
+    
+
+
+    while (playerCardString < 0 || playerCardString > playerCards.size()) {
+      System.out.println("Please enter value from 1 to " + playerCards.size());
+      System.out.println("\nEnter the cards number:");
+      playerInput = playerScanner.nextLine();
+    }
+
+
+    playerCardString = Integer.valueOf(playerInput);
     playerCardString = playerCardString - 1;
 
 
 
 
     while (true) {
+
+      while (playerInput.isBlank()) {
+        System.out.println("\nDon't enter letters or empty lines:");
+        playerInput = playerScanner.nextLine();
+      }
+  
+
+      playerCardString = Integer.valueOf(playerInput);
+      playerCardString = playerCardString - 1;
 
       if (playerCardString < 0 || playerCardString > playerCards.size()){
 
@@ -133,8 +154,7 @@ public void processPlayerCards() {
 
           System.out.println("\nYou can use only cards with the same color or number.");
           System.out.println("\nEnter the cards number:");
-          playerCardString = Integer.valueOf(playerScanner.nextLine());
-          playerCardString = playerCardString - 1;
+          playerInput = playerScanner.nextLine();
         
       }
     }
