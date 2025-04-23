@@ -9,10 +9,8 @@ import java.util.Scanner;
 
 import lv.rvt.tools.Helper;
 
-public class SinglePlayer {
-
-
-Scanner playerScanner = new Scanner(System.in);
+public class MultiPlayer {
+    Scanner playerScanner = new Scanner(System.in);
 
 Scanner playerNameString = new Scanner(System.in);
 
@@ -126,8 +124,8 @@ public void processPlayerCards() {
 
         System.out.println("Please enter value from 1 to " + playerCards.size());
         System.out.println("\nEnter the cards number:");
-        playerInput = playerScanner.nextLine();
-        
+        playerCardString = Integer.valueOf(playerScanner.nextLine());
+        playerCardString = playerCardString - 1;
 
       } else if (cards.size() == 0) {
 
@@ -279,19 +277,11 @@ public void writingIntoRecordTable() {
         header.clear();
 
         header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
-        Helper.writeRecordTableForRound("SinglePlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        Helper.writeRecordTableForRound("SinglePlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
+        Helper.writeRecordTableForRound("MultiPlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Helper.writeRecordTableForRound("MultiPlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
 
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
-
-
 }
-
-
-
-
-
-
