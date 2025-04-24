@@ -12,7 +12,7 @@ public static void mainGame(){
     
     Scanner scanner = new Scanner(System.in);
 
-    System.out.println("Hello, choose your command: ");
+    System.out.println("\nHello, choose your command: ");
     System.out.println("\nS - start the singleplayer mode");
     System.out.println("M - start the multiplayer mode");
     System.out.println("E - exit the game\n");
@@ -98,6 +98,8 @@ public static void mainGame(){
         Card card;
         
 
+        
+
         for(int i=0; i<10; i++){
 
             card = new Card(colors[random.nextInt(4)], numbers[random.nextInt(10)]);
@@ -106,18 +108,9 @@ public static void mainGame(){
 
         }
 
-        for(int i=0; i<10; i++){
-
-            card = new Card(colors[random.nextInt(4)], numbers[random.nextInt(10)]);
-            multiPlayer.computerCards.add(card);
-            
-
-        }
-
 
 
             ArrayList<Card> playerCards = multiPlayer.getPlayerCards();
-            ArrayList<Card> computerCards = multiPlayer.getComputerCards();
             ArrayList<Card> cards = multiPlayer.getCards();
             
             while (true) {
@@ -132,18 +125,6 @@ public static void mainGame(){
                 if (playerCards.size() == 0) {
                     System.out.println("\nPlayer won!");
                     multiPlayer.playerWinCount += 1;
-                    multiPlayer.writingIntoRecordTable();
-                    Helper.recordTable("MultiPlayerTable.csv");
-                    break;
-                  }
-
-                  multiPlayer.computerHasValidMove();
-                  multiPlayer.processComputerCards();
-                System.out.print("\nCards: ");
-                System.out.println(cards.getLast());
-
-                if (computerCards.size() == 0) {
-                    System.out.println("\nComputer won!");
                     multiPlayer.writingIntoRecordTable();
                     Helper.recordTable("MultiPlayerTable.csv");
                     break;

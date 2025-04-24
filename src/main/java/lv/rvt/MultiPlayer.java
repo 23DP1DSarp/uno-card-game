@@ -10,15 +10,16 @@ import java.util.Scanner;
 import lv.rvt.tools.Helper;
 
 public class MultiPlayer {
-    Scanner playerScanner = new Scanner(System.in);
+
+Scanner playerScanner = new Scanner(System.in);
 
 Scanner playerNameString = new Scanner(System.in);
+
+ArrayList<String> playerNames = new ArrayList<String>();
 
 String playerInput = "";
 
 ArrayList<Card> playerCards = new ArrayList<Card>();
-
-ArrayList<Card> computerCards = new ArrayList<Card>();
 
 ArrayList<Card> cards = new ArrayList<Card>();
 
@@ -31,49 +32,37 @@ Random random = new Random();
 
 Card card;
 
-int computerPoints = 0;
-
 int playerPoints = 0;
 
 int playerWinCount = 0;
 
+int playersCount = 0;
+
 public ArrayList<Card> getPlayerCards() {
     return playerCards;
-  }
-
-
-
-  public ArrayList<Card> getComputerCards() {
-    return computerCards;
-  }
+}
 
 public ArrayList<Card> getCards() {
   return cards;
 }
 
-public void processComputerCards() {
+public ArrayList<String> getPlayerNames() {
 
-        
+  for (int i = 0; i < playersCount; i++) {
+    System.out.println("Enter player " + i + "name:");
+    playerNames.add(playerNameString.nextLine());
+  }
 
-        for(int b=0; b < computerCards.size(); b++){
-           
-          if (computerCards.get(b).color == cards.get(cards.size() - 1).color) {
-                
-              computerPoints = computerPoints + computerCards.get(b).number;
-                cards.add(computerCards.get(b));
-                computerCards.remove(computerCards.get(b));
-                break;
+  return playerNames;
+}
 
-          } else if (computerCards.get(b).number == cards.get(cards.size() - 1).number) {
 
-                computerPoints = computerPoints + computerCards.get(b).number;
-                cards.add(computerCards.get(b));
-                computerCards.remove(computerCards.get(b));
-                break;
+public void createPlayersArrays() {
+  for (int i = 0; i < playersCount; i++) {
+    ArrayList<Card> playeri = new ArrayList<Card>();
+  }
 
-            }
-        }
- 
+  
 }
 
 public void processPlayerCards() {
@@ -161,30 +150,6 @@ public void processPlayerCards() {
 }
 
 
-public void computerHasValidMove() {
-
-  int validCards = 0;
-
-  if (!cards.isEmpty()){
-
-  Card lastCard = cards.get(cards.size() - 1);
-
-  for (Card card : computerCards) {
-
-      if (card.color.equals(lastCard.color) || card.number == lastCard.number) {
-          validCards +=1;
-      } 
-
-  }
-
-  if (validCards == 0) {
-    drawCardUntilValid(computerCards);
-  }
-  
-  }
-}
-
-
 public void playerHasValidMove() {
   
   int validCards = 0;
@@ -239,14 +204,13 @@ public void writingIntoRecordTable() {
     dataToWrite.clear();
 
     System.out.println("player" + playerPoints);
-    System.out.println("Computer" + computerPoints);
     
     ArrayList<String> row1 = new ArrayList<>();
     row1.clear();
 
-    row1.add("Computer");
+   /*  row1.add("Computer");
     row1.add(String.valueOf(computerPoints));
-    dataToWrite.add(row1);
+    dataToWrite.add(row1); */
 
     
     System.out.println("Enter your name:");
