@@ -16,6 +16,8 @@ Scanner playerScanner = new Scanner(System.in);
 
 Scanner playerNameString = new Scanner(System.in);
 
+String playerName;
+
 String playerInput = "";
 
 ArrayList<Card> playerCards = new ArrayList<Card>();
@@ -252,7 +254,7 @@ public void writingIntoRecordTable() {
 
     
     System.out.println("Enter your name:");
-    String playerName = playerNameString.nextLine();
+    playerName = playerNameString.nextLine();
 
     String score = String.valueOf(String.valueOf(playerPoints));
 
@@ -286,6 +288,65 @@ public void writingIntoRecordTable() {
         e.printStackTrace();
     }
 }
+
+
+public void updatePlayerWin(String playerName, int points) {
+  try {
+      // Read data as String[] rows
+      List<String[]> rawData = Helper.readCsv("RecordsDataBase.csv");
+
+      if (rawData.isEmpty()) {
+          System.out.println("CSV is empty or missing header.");
+          return;
+      }
+
+      // Convert to ArrayList<ArrayList<String>> for easier mutation
+      ArrayList<ArrayList<String>> data = new ArrayList<>();
+      for (String[] row : rawData) {
+          data.add(new ArrayList<>(List.of(row)));
+      }
+
+      // Separate header
+      ArrayList<String> header = data.get(0);
+      List<ArrayList<String>> rows = data.subList(1, data.size());
+
+      boolean found = false;
+
+      // Search and update win count
+      for (ArrayList<String> row : rows) {
+          if (row.get(0).equalsIgnoreCase(playerName)) {
+              int wins = Integer.parseInt(row.get(2));
+              row.set(2, String.valueOf(wins + 1));
+              row.set(1, String.valueOf(points));
+              found = true;
+              break;
+          }
+      }
+
+      // Add new player if not found
+      if (!found) {
+          ArrayList<String> newRow = new ArrayList<>();
+          newRow.add(playerName); // name
+          newRow.add("0");         // points
+          newRow.add("1");         // wins
+          rows.add(newRow);
+      }
+
+      // Rebuild data (header + rows)
+      ArrayList<ArrayList<String>> finalData = new ArrayList<>();
+      finalData.add(header);
+      finalData.addAll(rows);
+
+      // Write updated data to CSV (overwrite)
+      Helper.writeCsv("RecordsDataBase.csv", finalData, StandardOpenOption.TRUNCATE_EXISTING);
+
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+}
+
+
+
 
 
 }
