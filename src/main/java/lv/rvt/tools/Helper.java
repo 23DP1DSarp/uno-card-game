@@ -65,18 +65,8 @@ public class Helper {
         }
     }
 
-    public static void writeCsv(String filename, ArrayList<ArrayList<String>> rows, StandardOpenOption... options) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(getFilePath(filename), StandardCharsets.UTF_8, options)) {
-            for (ArrayList<String> row : rows) {
-                String line = String.join(",", escapeCsvFields(row));
-                writer.write(line);
-                writer.newLine();
-            }
-            writer.close();
-        }
-    }
 
-    public static void writeRecordTableForRound(String filename, ArrayList<ArrayList<String>> rows, StandardOpenOption... options) throws IOException {
+    public static void writeRecordTable(String filename, ArrayList<ArrayList<String>> rows, StandardOpenOption... options) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(getFilePath(filename), StandardCharsets.UTF_8, options)) {
             for (ArrayList<String> row : rows) {
                 String line = String.join(",", escapeCsvFields(row));

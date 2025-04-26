@@ -16,9 +16,13 @@ Scanner playerScanner = new Scanner(System.in);
 
 Scanner playerNameString = new Scanner(System.in);
 
+Scanner tableSortTypeInput = new Scanner(System.in);
+
 String playerName;
 
 String playerInput = "";
+
+String sortInput;
 
 ArrayList<Card> playerCards = new ArrayList<Card>();
 
@@ -237,7 +241,8 @@ public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
 
 
 public void writingIntoRecordTable() {
-    
+
+
     ArrayList<ArrayList<String>> dataToWrite = new ArrayList<>();
 
     dataToWrite.clear();
@@ -269,28 +274,61 @@ public void writingIntoRecordTable() {
     row2.add(wins);
     dataToWrite.add(row2);
 
-    dataToWrite.sort((a, b) -> {
-      int pointsA = Integer.parseInt(a.get(1));
-      int pointsB = Integer.parseInt(b.get(1));
-      return Integer.compare(pointsB, pointsA);
-  });
 
+    System.out.println("Would you like to sort the leaderboard by points or by wins?:");
+    System.out.println("( P = points,   W = wins )");
+    
+      while (true) {
+
+        sortInput = tableSortTypeInput.nextLine();
+
+        if (sortInput.equals("P")) {
+            // sort by points
+          dataToWrite.sort((a, b) -> {
+            int pointsA = Integer.parseInt(a.get(1));
+            int pointsB = Integer.parseInt(b.get(1));
+            return Integer.compare(pointsB, pointsA);
+        });
+        break;
+      } else if (sortInput.equals("W")) {
+            // sort by wins
+              dataToWrite.sort((a, b) -> {
+                int winsA = Integer.parseInt(a.get(1));
+                int winsB = Integer.parseInt(b.get(1));
+                return Integer.compare(winsB, winsA);
+            });
+            break;
+      } else {
+            System.out.println("Please enter P or W.");
+      } 
+
+    }
+
+        
+     
+    
+    
    try {
 
         ArrayList<ArrayList<String>> header = new ArrayList<>();
         header.clear();
 
         header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
-        Helper.writeRecordTableForRound("SinglePlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        Helper.writeRecordTableForRound("SinglePlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
+        Helper.writeRecordTable("SinglePlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Helper.writeRecordTable("SinglePlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
 
     } catch (IOException e) {
         e.printStackTrace();
     }
-}
+
+  }
 
 
-public void updatePlayerWin(String playerName, int points) {
+  
+
+
+
+public void updatePlayerWin(String playerName, int points, int playerWins) {
   try {
       // Read data as String[] rows
       List<String[]> rawData = Helper.readCsv("RecordsDataBase.csv");
@@ -327,8 +365,8 @@ public void updatePlayerWin(String playerName, int points) {
       if (!found) {
           ArrayList<String> newRow = new ArrayList<>();
           newRow.add(playerName); // name
-          newRow.add("0");         // points
-          newRow.add("1");         // wins
+          newRow.add(String.valueOf(points));         // points
+          newRow.add(String.valueOf(playerWins));         // wins
           rows.add(newRow);
       }
 
@@ -338,7 +376,7 @@ public void updatePlayerWin(String playerName, int points) {
       finalData.addAll(rows);
 
       // Write updated data to CSV (overwrite)
-      Helper.writeCsv("RecordsDataBase.csv", finalData, StandardOpenOption.TRUNCATE_EXISTING);
+      Helper.writeRecordTable("RecordsDataBase.csv", finalData, StandardOpenOption.TRUNCATE_EXISTING);
 
   } catch (IOException e) {
       e.printStackTrace();

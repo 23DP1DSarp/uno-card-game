@@ -241,8 +241,8 @@ public void writingIntoRecordTable() {
         header.clear();
 
         header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
-        Helper.writeRecordTableForRound("MultiPlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        Helper.writeRecordTableForRound("MultiPlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
+        Helper.writeRecordTable("MultiPlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Helper.writeRecordTable("MultiPlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
 
     } catch (IOException e) {
         e.printStackTrace();

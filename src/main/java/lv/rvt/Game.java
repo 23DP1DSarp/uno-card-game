@@ -66,7 +66,7 @@ public static void mainGame(){
                     System.out.println("\nPlayer won!");
                     singlePlayer.playerWinCount += 1;
                     singlePlayer.writingIntoRecordTable();
-                    singlePlayer.updatePlayerWin(singlePlayer.playerName, singlePlayer.playerPoints);
+                    singlePlayer.updatePlayerWin(singlePlayer.playerName, singlePlayer.playerPoints, singlePlayer.playerWinCount);
                     Helper.recordTable("SinglePlayerTable.csv");
                     break;
                   }
@@ -79,7 +79,7 @@ public static void mainGame(){
                 if (computerCards.size() == 0) {
                     System.out.println("\nComputer won!");
                     singlePlayer.writingIntoRecordTable();
-                    singlePlayer.updatePlayerWin(singlePlayer.playerName, singlePlayer.playerPoints);
+                    singlePlayer.updatePlayerWin(singlePlayer.playerName, singlePlayer.playerPoints, singlePlayer.playerWinCount);
                     Helper.recordTable("SinglePlayerTable.csv");
                     break;
                   }
