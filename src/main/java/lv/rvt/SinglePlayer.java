@@ -266,6 +266,29 @@ public void writingIntoRecordTable() {
     String wins = String.valueOf(String.valueOf(playerWinCount));
 
 
+
+    // Read RecordsDataBase
+    ArrayList<ArrayList<String>> recordsList = new ArrayList<>();
+    try {
+        List<String[]> recordsRaw = Helper.readCsv("RecordsDataBase.csv");
+        for (String[] row : recordsRaw) {
+            recordsList.add(new ArrayList<>(List.of(row)));
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    if (recordsList.isEmpty()) {
+        // If database is empty, create header
+        recordsList.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
+    }
+
+    ArrayList<String> headerRecord = recordsList.get(0);
+    List<ArrayList<String>> recordsRows = recordsList.subList(1, recordsList.size());
+
+    boolean found = false;
+    int playerWins = 0;
+
     ArrayList<String> row2 = new ArrayList<>();
     row2.clear();
 
@@ -273,6 +296,7 @@ public void writingIntoRecordTable() {
     row2.add(score);
     row2.add(wins);
     dataToWrite.add(row2);
+
 
 
     System.out.println("Would you like to sort the leaderboard by points or by wins?:");
@@ -303,8 +327,6 @@ public void writingIntoRecordTable() {
       } 
 
     }
-
-        
      
     
     
@@ -330,7 +352,7 @@ public void writingIntoRecordTable() {
 
 public void updatePlayerWin(String playerName, int points, int playerWins) {
   try {
-      // Read data as String[] rows
+      
       List<String[]> rawData = Helper.readCsv("RecordsDataBase.csv");
 
       if (rawData.isEmpty()) {
@@ -338,13 +360,13 @@ public void updatePlayerWin(String playerName, int points, int playerWins) {
           return;
       }
 
-      // Convert to ArrayList<ArrayList<String>> for easier mutation
+      
       ArrayList<ArrayList<String>> data = new ArrayList<>();
       for (String[] row : rawData) {
           data.add(new ArrayList<>(List.of(row)));
       }
 
-      // Separate header
+      
       ArrayList<String> header = data.get(0);
       List<ArrayList<String>> rows = data.subList(1, data.size());
 
@@ -354,8 +376,9 @@ public void updatePlayerWin(String playerName, int points, int playerWins) {
       for (ArrayList<String> row : rows) {
           if (row.get(0).equalsIgnoreCase(playerName)) {
               int wins = Integer.parseInt(row.get(2));
-              row.set(2, String.valueOf(wins + 1));
-              row.set(1, String.valueOf(points));
+              int pointsCount = Integer.parseInt(row.get(1));
+              row.set(2, String.valueOf(wins + playerWinCount));
+              row.set(1, String.valueOf(pointsCount + playerPoints));
               found = true;
               break;
           }
