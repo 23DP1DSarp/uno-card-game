@@ -99,39 +99,12 @@ public static void mainGame(){
         int[] numbers = {0,1,2,3,4,5,6,7,8,9};
         Card card;
         
+        
+        multiPlayer.setupPlayers();      
+        multiPlayer.giveInitialCards();   
+        multiPlayer.startGame();          
 
         
-
-        for(int i=0; i<10; i++){
-
-            card = new Card(colors[random.nextInt(4)], numbers[random.nextInt(10)]);
-            multiPlayer.playerCards.add(card);
-            
-
-        }
-
-
-
-            ArrayList<Card> playerCards = multiPlayer.getPlayerCards();
-            ArrayList<Card> cards = multiPlayer.getCards();
-            
-            while (true) {
-                
-                multiPlayer.playerHasValidMove();
-
-                multiPlayer.processPlayerCards();
-                System.out.print("\nCards: ");
-                System.out.println(cards.getLast());
-                
-
-                if (playerCards.size() == 0) {
-                    System.out.println("\nPlayer won!");
-                    multiPlayer.playerWinCount += 1;
-                    multiPlayer.writingIntoRecordTable();
-                    Helper.recordTable("MultiPlayerTable.csv");
-                    break;
-                  }
-                }
     
     }
     else if (command.equals("E")) {

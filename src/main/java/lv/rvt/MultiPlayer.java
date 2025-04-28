@@ -17,235 +17,207 @@ Scanner playerNameString = new Scanner(System.in);
 
 ArrayList<String> playerNames = new ArrayList<String>();
 
+ArrayList<ArrayList<Card>> allPlayersCards = new ArrayList<>();
+
+ArrayList<Integer> playerPointsList = new ArrayList<>();
+
 String playerInput = "";
 
-ArrayList<Card> playerCards = new ArrayList<Card>();
-
 ArrayList<Card> cards = new ArrayList<Card>();
-
 
 String[] colors = {"Green", "Blue", "Yellow", "Red"};
 
 int[] numbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    
+
 Random random = new Random();
 
 Card card;
-
-int playerPoints = 0;
 
 int playerWinCount = 0;
 
 int playersCount = 0;
 
-public ArrayList<Card> getPlayerCards() {
-    return playerCards;
-}
 
-public ArrayList<Card> getCards() {
-  return cards;
-}
+public void setupPlayers() {
+    System.out.println("Enter number of players:");
+    playersCount = Integer.parseInt(playerScanner.nextLine());
 
-public ArrayList<String> getPlayerNames() {
-
-  for (int i = 0; i < playersCount; i++) {
-    System.out.println("Enter player " + i + "name:");
-    playerNames.add(playerNameString.nextLine());
-  }
-
-  return playerNames;
+    for (int i = 0; i < playersCount; i++) {
+        System.out.println("Enter player " + (i + 1) + " name:");
+        playerNames.add(playerNameString.nextLine());
+        allPlayersCards.add(new ArrayList<Card>());
+        playerPointsList.add(0);
+    }
 }
 
 
-public void createPlayersArrays() {
-  for (int i = 0; i < playersCount; i++) {
-    ArrayList<Card> playeri = new ArrayList<Card>();
-  }
-
-  
+public void giveInitialCards() {
+    for (ArrayList<Card> playerHand : allPlayersCards) {
+        for (int i = 0; i < 5; i++) {
+            playerHand.add(new Card(colors[random.nextInt(colors.length)], numbers[random.nextInt(numbers.length)]));
+        }
+    }
 }
 
-public void processPlayerCards() {
+public void startGame() {
     
+
+    boolean gameRunning = true;
+
+    while (gameRunning) {
+        for (int currentPlayerIndex = 0; currentPlayerIndex < playersCount; currentPlayerIndex++) {
+            System.out.println("\n" + playerNames.get(currentPlayerIndex) + "'s turn:");
+
+            if (!(cards.isEmpty())) {
+              System.out.print("\nCards: ");
+              System.out.println(cards.getLast());
+
+              playerHasValidMove(currentPlayerIndex);
+            }
+            
+
+            processPlayerCards(currentPlayerIndex);
+
+            
+            if (allPlayersCards.get(currentPlayerIndex).isEmpty()) {
+                System.out.println(playerNames.get(currentPlayerIndex) + " wins!");
+                writingIntoRecordTable(currentPlayerIndex);
+                gameRunning = false;
+                break;
+            }
+        }
+    }
+}
+
+
+public void processPlayerCards(int playerIndex) {
+
+    ArrayList<Card> playerCards = allPlayersCards.get(playerIndex);
+
     System.out.print("\nPlayer's cards: ");
-    playerCards.forEach( (n) -> {System.out.print(String.valueOf(playerCards.indexOf(n) + 1) + ". " + n + "  "); } );
+    playerCards.forEach((n) -> {System.out.print(String.valueOf(playerCards.indexOf(n) + 1) + ". " + n + "  ");});
 
     System.out.println("\nEnter the cards number:");
     playerInput = playerScanner.nextLine();
 
-    while (playerInput.isBlank()) {
-      System.out.println("\nDon't enter letters or empty lines:");
-      playerInput = playerScanner.nextLine();
-    }
-
-
-    int playerCardString = Integer.valueOf(playerInput);
-    
-    
-    
-
-
-    while (playerCardString < 0 || playerCardString > playerCards.size()) {
-      System.out.println("Please enter value from 1 to " + playerCards.size());
-      System.out.println("\nEnter the cards number:");
-      playerInput = playerScanner.nextLine();
-    }
-
-
-    playerCardString = Integer.valueOf(playerInput);
-    playerCardString = playerCardString - 1;
-
-
-
-
-    while (true) {
-
-      while (playerInput.isBlank()) {
+    while (!isNumeric(playerInput)) {
         System.out.println("\nDon't enter letters or empty lines:");
         playerInput = playerScanner.nextLine();
-      }
-  
+    }
 
-      playerCardString = Integer.valueOf(playerInput);
-      playerCardString = playerCardString - 1;
+    int playerCardString = Integer.parseInt(playerInput) - 1;
 
-      if (playerCardString < 0 || playerCardString > playerCards.size()){
-
+    while (playerCardString < 0 || playerCardString >= playerCards.size()) {
         System.out.println("Please enter value from 1 to " + playerCards.size());
         System.out.println("\nEnter the cards number:");
-        playerCardString = Integer.valueOf(playerScanner.nextLine());
-        playerCardString = playerCardString - 1;
-
-      } else if (cards.size() == 0) {
-
-        playerPoints = playerPoints + playerCards.get(playerCardString).number;
-        cards.add(playerCards.get(playerCardString));
-        playerCards.remove(playerCards.get(playerCardString));
-        break;
-
-      } else if (playerCards.get(playerCardString).color == cards.get(cards.size() - 1).color) {
-
-        playerPoints = playerPoints + playerCards.get(playerCardString).number;
-        cards.add(playerCards.get(playerCardString));
-        playerCards.remove(playerCards.get(playerCardString));
-        break;
-
-      } else if (playerCards.get(playerCardString).number == cards.get(cards.size() - 1).number) {
-
-        playerPoints = playerPoints + playerCards.get(playerCardString).number;
-        cards.add(playerCards.get(playerCardString));
-        playerCards.remove(playerCards.get(playerCardString));
-        break;
-
-      } else {
-
-          System.out.println("\nYou can use only cards with the same color or number.");
-          System.out.println("\nEnter the cards number:");
-          playerInput = playerScanner.nextLine();
-        
-      }
+        playerInput = playerScanner.nextLine();
+        while (!isNumeric(playerInput)) {
+            System.out.println("\nDon't enter letters or empty lines:");
+            playerInput = playerScanner.nextLine();
+        }
+        playerCardString = Integer.parseInt(playerInput) - 1;
     }
-      
-    
+
+    while (true) {
+        if (cards.size() == 0 ||
+            playerCards.get(playerCardString).color.equals(cards.get(cards.size() - 1).color) ||
+            playerCards.get(playerCardString).number == cards.get(cards.size() - 1).number) {
+
+            int newPoints = playerPointsList.get(playerIndex) + playerCards.get(playerCardString).number;
+            playerPointsList.set(playerIndex, newPoints);
+
+            cards.add(playerCards.get(playerCardString));
+            playerCards.remove(playerCardString);
+            break;
+
+        } else {
+            System.out.println("\nYou can use only cards with the same color or number.");
+            System.out.println("\nEnter the cards number:");
+            playerInput = playerScanner.nextLine();
+            while (!isNumeric(playerInput)) {
+                System.out.println("\nDon't enter letters or empty lines:");
+                playerInput = playerScanner.nextLine();
+            }
+            playerCardString = Integer.parseInt(playerInput) - 1;
+        }
+    }
 }
 
 
-public void playerHasValidMove() {
-  
-  int validCards = 0;
+public void playerHasValidMove(int playerIndex) {
+    ArrayList<Card> playerCards = allPlayersCards.get(playerIndex);
+    int validCards = 0;
 
-  if (!cards.isEmpty()){
+    if (!cards.isEmpty()) {
+        Card lastCard = cards.get(cards.size() - 1);
 
-  Card lastCard = cards.get(cards.size() - 1);
+        for (Card card : playerCards) {
+            if (card.color.equals(lastCard.color) || card.number == lastCard.number) {
+                validCards += 1;
+            }
+        }
 
-  for (Card card : playerCards) {
-
-      if (card.color.equals(lastCard.color) || card.number == lastCard.number) {
-          validCards +=1;
-      } 
-
-  }
-
-  if (validCards == 0) {
-    drawCardUntilValid(playerCards);
-  }
-  
-  }
-
+        if (validCards == 0) {
+            drawCardUntilValid(playerCards);
+        }
+    }
 }
+
 
 public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
-  while (true) {
-      
-      Card newCard = new Card(colors[random.nextInt(colors.length)], numbers[random.nextInt(numbers.length)]);
+    while (true) {
+        Card newCard = new Card(colors[random.nextInt(colors.length)], numbers[random.nextInt(numbers.length)]);
+
+        Card lastCard = cards.get(cards.size() - 1);
+
+        if (newCard.color.equals(lastCard.color) || newCard.number == lastCard.number) {
+            targetPlayerCards.add(newCard);
+            break;
+        } else {
+            targetPlayerCards.add(newCard);
+        }
+    }
+}
+
+
+public void writingIntoRecordTable(int winnerIndex) {
+
+  ArrayList<ArrayList<String>> dataToWrite = new ArrayList<>();
+
+  for (int i = 0; i < playerNames.size(); i++) {
+      ArrayList<String> row = new ArrayList<>();
+      row.add(playerNames.get(i));
+      row.add(String.valueOf(playerPointsList.get(i)));
 
       
-      Card lastCard = cards.get(cards.size() - 1);
-
-      
-      if (newCard.color.equals(lastCard.color) || newCard.number == lastCard.number) {
-          targetPlayerCards.add(newCard);
-          //System.out.println("\nDrawn valid card: " + newCard);
-          break;
+      if (i == winnerIndex) {
+          row.add(String.valueOf(playerWinCount + 1));
       } else {
-          targetPlayerCards.add(newCard);
-          //System.out.println("\nDrawn valid card: " + newCard);
+          row.add("0");
       }
+
+      dataToWrite.add(row);
+  }
+
+  try {
+      ArrayList<ArrayList<String>> header = new ArrayList<>();
+      header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
+
+      Helper.writeRecordTable("MultiPlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+      Helper.writeRecordTable("MultiPlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
+
+  } catch (IOException e) {
+      e.printStackTrace();
   }
 }
 
-
-
-
-public void writingIntoRecordTable() {
-    
-    ArrayList<ArrayList<String>> dataToWrite = new ArrayList<>();
-
-    dataToWrite.clear();
-
-    System.out.println("player" + playerPoints);
-    
-    ArrayList<String> row1 = new ArrayList<>();
-    row1.clear();
-
-   /*  row1.add("Computer");
-    row1.add(String.valueOf(computerPoints));
-    dataToWrite.add(row1); */
-
-    
-    System.out.println("Enter your name:");
-    String playerName = playerNameString.nextLine();
-
-    String score = String.valueOf(String.valueOf(playerPoints));
-
-    String wins = String.valueOf(String.valueOf(playerWinCount));
-
-
-    ArrayList<String> row2 = new ArrayList<>();
-    row2.clear();
-
-    row2.add(playerName);
-    row2.add(score);
-    row2.add(wins);
-    dataToWrite.add(row2);
-
-    dataToWrite.sort((a, b) -> {
-      int pointsA = Integer.parseInt(a.get(1));
-      int pointsB = Integer.parseInt(b.get(1));
-      return Integer.compare(pointsB, pointsA);
-  });
-
-   try {
-
-        ArrayList<ArrayList<String>> header = new ArrayList<>();
-        header.clear();
-
-        header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
-        Helper.writeRecordTable("MultiPlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        Helper.writeRecordTable("MultiPlayerTable.csv", dataToWrite, StandardOpenOption.APPEND);
-
-    } catch (IOException e) {
-        e.printStackTrace();
+private boolean isNumeric(String str) {
+    try {
+        Integer.parseInt(str);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
     }
 }
+
 }
