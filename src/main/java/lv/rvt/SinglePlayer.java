@@ -92,47 +92,29 @@ public void processPlayerCards() {
     System.out.println("\nEnter the cards number:");
     playerInput = playerScanner.nextLine();
 
-    while (playerInput.isBlank()) {
+    while (!isNumeric(playerInput)) {
       System.out.println("\nDon't enter letters or empty lines:");
       playerInput = playerScanner.nextLine();
-    }
+  }
 
-
-    int playerCardString = Integer.valueOf(playerInput);
-    
-    
-    
-
-
-    while (playerCardString < 0 || playerCardString > playerCards.size()) {
-      System.out.println("Please enter value from 1 to " + playerCards.size());
-      System.out.println("\nEnter the cards number:");
-      playerInput = playerScanner.nextLine();
-    }
-
-
-    playerCardString = Integer.valueOf(playerInput);
-    playerCardString = playerCardString - 1;
-
+  int playerCardString = Integer.parseInt(playerInput) - 1;
 
 
 
     while (true) {
 
-      while (playerInput.isBlank()) {
-        System.out.println("\nDon't enter letters or empty lines:");
-        playerInput = playerScanner.nextLine();
-      }
-  
+      if (playerCardString < 0 || playerCardString >= playerCards.size()){
 
-      playerCardString = Integer.valueOf(playerInput);
-      playerCardString = playerCardString - 1;
-
-      if (playerCardString < 0 || playerCardString > playerCards.size()){
-
-        System.out.println("Please enter value from 1 to " + playerCards.size());
-        System.out.println("\nEnter the cards number:");
-        playerInput = playerScanner.nextLine();
+        
+          System.out.println("Please enter value from 1 to " + playerCards.size());
+          System.out.println("\nEnter the cards number:");
+          playerInput = playerScanner.nextLine();
+          while (!isNumeric(playerInput)) {
+              System.out.println("\nDon't enter letters or empty lines:");
+              playerInput = playerScanner.nextLine();
+          }
+          playerCardString = Integer.parseInt(playerInput) - 1;
+      
         
 
       } else if (cards.size() == 0) {
@@ -228,11 +210,9 @@ public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
       
       if (newCard.color.equals(lastCard.color) || newCard.number == lastCard.number) {
           targetPlayerCards.add(newCard);
-          //System.out.println("\nDrawn valid card: " + newCard);
           break;
       } else {
           targetPlayerCards.add(newCard);
-          //System.out.println("\nDrawn valid card: " + newCard);
       }
   }
 }
@@ -246,9 +226,6 @@ public void writingIntoRecordTable() {
     ArrayList<ArrayList<String>> dataToWrite = new ArrayList<>();
 
     dataToWrite.clear();
-
-    System.out.println("player" + playerPoints);
-    System.out.println("Computer" + computerPoints);
     
     ArrayList<String> row1 = new ArrayList<>();
     row1.clear();
@@ -267,7 +244,7 @@ public void writingIntoRecordTable() {
 
 
 
-    // Read RecordsDataBase
+    
     ArrayList<ArrayList<String>> recordsList = new ArrayList<>();
     try {
         List<String[]> recordsRaw = Helper.readCsv("RecordsDataBase.csv");
@@ -279,7 +256,7 @@ public void writingIntoRecordTable() {
     }
 
     if (recordsList.isEmpty()) {
-        // If database is empty, create header
+        
         recordsList.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
     }
 
@@ -372,7 +349,7 @@ public void updatePlayerWin(String playerName, int points, int playerWins) {
 
       boolean found = false;
 
-      // Search and update win count
+     
       for (ArrayList<String> row : rows) {
           if (row.get(0).equalsIgnoreCase(playerName)) {
               int wins = Integer.parseInt(row.get(2));
@@ -384,21 +361,21 @@ public void updatePlayerWin(String playerName, int points, int playerWins) {
           }
       }
 
-      // Add new player if not found
+      
       if (!found) {
           ArrayList<String> newRow = new ArrayList<>();
-          newRow.add(playerName); // name
-          newRow.add(String.valueOf(points));         // points
-          newRow.add(String.valueOf(playerWins));         // wins
+          newRow.add(playerName);
+          newRow.add(String.valueOf(points));        
+          newRow.add(String.valueOf(playerWins));         
           rows.add(newRow);
       }
 
-      // Rebuild data (header + rows)
+      
       ArrayList<ArrayList<String>> finalData = new ArrayList<>();
       finalData.add(header);
       finalData.addAll(rows);
 
-      // Write updated data to CSV (overwrite)
+      
       Helper.writeRecordTable("RecordsDataBase.csv", finalData, StandardOpenOption.TRUNCATE_EXISTING);
 
   } catch (IOException e) {
@@ -406,7 +383,14 @@ public void updatePlayerWin(String playerName, int points, int playerWins) {
   }
 }
 
-
+private boolean isNumeric(String str) {
+  try {
+      Integer.parseInt(str);
+      return true;
+  } catch (NumberFormatException e) {
+      return false;
+  }
+}
 
 
 

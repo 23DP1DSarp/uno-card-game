@@ -136,4 +136,46 @@ private static String padRight(String text, int width) {
     return String.format("%-" + width + "s", text);
 }
 
+public static void sortRecordsInCsv(String fileName, String sortBy) {
+    try {
+        List<String[]> rawData = Helper.readCsv(fileName);
+        if (rawData.isEmpty()) {
+            System.out.println("CSV is empty or missing header.");
+            return;
+        }
+
+        
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+        for (String[] row : rawData) {
+            data.add(new ArrayList<>(List.of(row)));
+        }
+
+        
+        ArrayList<String> header = data.get(0);
+        List<ArrayList<String>> rows = data.subList(1, data.size());
+
+        
+        if (sortBy.equalsIgnoreCase("P")) {
+            rows.sort((a, b) -> Integer.compare(Integer.parseInt(b.get(1)), Integer.parseInt(a.get(1))));
+        } else if (sortBy.equalsIgnoreCase("W")) {
+            rows.sort((a, b) -> Integer.compare(Integer.parseInt(b.get(2)), Integer.parseInt(a.get(2))));
+        } else {
+            System.out.println("Invalid sort type. Use 'P - points' or 'W - wins'.");
+            return;
+        }
+
+       
+        ArrayList<ArrayList<String>> finalData = new ArrayList<>();
+        finalData.add(header);
+        finalData.addAll(rows);
+
+        
+        Helper.writeRecordTable(fileName, finalData, StandardOpenOption.TRUNCATE_EXISTING);
+
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
 }

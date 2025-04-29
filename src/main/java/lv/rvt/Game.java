@@ -15,6 +15,7 @@ public static void mainGame(){
     System.out.println("\nHello, choose your command: ");
     System.out.println("\nS - start the singleplayer mode");
     System.out.println("M - start the multiplayer mode");
+    System.out.println("L - show leaderboard");
     System.out.println("E - exit the game\n");
     
 
@@ -94,11 +95,6 @@ public static void mainGame(){
     else if (command.equals("M")) {
 
         MultiPlayer multiPlayer = new MultiPlayer();
-        Random random = new Random();
-        String[] colors = {"Green", "Blue", "Yellow", "Red"};
-        int[] numbers = {0,1,2,3,4,5,6,7,8,9};
-        Card card;
-        
         
         multiPlayer.setupPlayers();      
         multiPlayer.giveInitialCards();   
@@ -106,18 +102,32 @@ public static void mainGame(){
 
         
     
-    }
-    else if (command.equals("E")) {
+    } else if (command.equals("L")) {
+
+
+        System.out.println("Would you like to sort by points or by wins?");
+        System.out.println("(P - points, W -wins)");
+        String sortCommand = scanner.nextLine();
+        Helper.sortRecordsInCsv("RecordsDataBase.csv", sortCommand);
+        
+        Helper.recordTable("RecordsDataBase.csv");
+
+    } else if (command.equals("E")) {
+
         scanner.close();
         break;
+
     }
     else {
+
         System.out.println("Please enter S , M or E");
+        
     }
     
 
     System.out.println("\nS - start the singleplayer mode");
     System.out.println("M - start the multiplayer mode");
+    System.out.println("L - show leaderboard");
     System.out.println("E - exit the game\n");
 }
     
