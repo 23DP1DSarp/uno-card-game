@@ -204,7 +204,6 @@ public void writingIntoRecordTable(int winnerIndex) {
         recordsList.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
     }
 
-    ArrayList<String> header = recordsList.get(0);
     List<ArrayList<String>> recordsRows = recordsList.subList(1, recordsList.size());
 
     
@@ -254,7 +253,6 @@ public void writingIntoRecordTable(int winnerIndex) {
     }
 
     ArrayList<ArrayList<String>> finalData = new ArrayList<>();
-    finalData.add(header);
     finalData.addAll(recordsRows);
 
     try {
@@ -264,10 +262,10 @@ public void writingIntoRecordTable(int winnerIndex) {
     }
 
   try {
-      ArrayList<ArrayList<String>> header2 = new ArrayList<>();
-      header2.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
+      ArrayList<ArrayList<String>> header = new ArrayList<>();
+      header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
 
-      Helper.writeRecordTable("MultiPlayerTable.csv", header2, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+      Helper.writeRecordTable("MultiPlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
       Helper.writeRecordTable("MultiPlayerTable.csv", finalData, StandardOpenOption.APPEND);
 
   } catch (IOException e) {
