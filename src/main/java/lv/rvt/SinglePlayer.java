@@ -90,11 +90,11 @@ public void processPlayerCards() {
     playerCards.forEach( (n) -> {System.out.print(String.valueOf(playerCards.indexOf(n) + 1) + ". " + n + "  "); } );
 
     System.out.println("\nEnter the cards number:");
-    playerInput = playerScanner.nextLine();
+    playerInput = playerScanner.nextLine().trim();
 
     while (!isNumeric(playerInput)) {
       System.out.println("\nDon't enter letters or empty lines:");
-      playerInput = playerScanner.nextLine();
+      playerInput = playerScanner.nextLine().trim();
   }
 
   int playerCardString = Integer.parseInt(playerInput) - 1;
@@ -111,7 +111,7 @@ public void processPlayerCards() {
           playerInput = playerScanner.nextLine();
           while (!isNumeric(playerInput)) {
               System.out.println("\nDon't enter letters or empty lines:");
-              playerInput = playerScanner.nextLine();
+              playerInput = playerScanner.nextLine().trim();
           }
           playerCardString = Integer.parseInt(playerInput) - 1;
       
@@ -143,6 +143,11 @@ public void processPlayerCards() {
           System.out.println("\nYou can use only cards with the same color or number.");
           System.out.println("\nEnter the cards number:");
           playerInput = playerScanner.nextLine();
+          while (!isNumeric(playerInput)) {
+            System.out.println("\nDon't enter letters or empty lines:");
+            playerInput = playerScanner.nextLine().trim();
+          }
+          playerCardString = Integer.parseInt(playerInput) - 1;
         
       }
     }

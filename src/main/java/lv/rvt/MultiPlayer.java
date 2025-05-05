@@ -104,11 +104,11 @@ public void processPlayerCards(int playerIndex) {
     playerCards.forEach((n) -> {System.out.print(String.valueOf(playerCards.indexOf(n) + 1) + ". " + n + "  ");});
 
     System.out.println("\nEnter the cards number:");
-    playerInput = playerScanner.nextLine();
+    playerInput = playerScanner.nextLine().trim();
 
     while (!isNumeric(playerInput)) {
         System.out.println("\nDon't enter letters or empty lines:");
-        playerInput = playerScanner.nextLine();
+        playerInput = playerScanner.nextLine().trim();
     }
 
     int playerCardString = Integer.parseInt(playerInput) - 1;
@@ -116,10 +116,10 @@ public void processPlayerCards(int playerIndex) {
     while (playerCardString < 0 || playerCardString >= playerCards.size()) {
         System.out.println("Please enter value from 1 to " + playerCards.size());
         System.out.println("\nEnter the cards number:");
-        playerInput = playerScanner.nextLine();
+        playerInput = playerScanner.nextLine().trim();
         while (!isNumeric(playerInput)) {
             System.out.println("\nDon't enter letters or empty lines:");
-            playerInput = playerScanner.nextLine();
+            playerInput = playerScanner.nextLine().trim();
         }
         playerCardString = Integer.parseInt(playerInput) - 1;
     }
@@ -139,10 +139,10 @@ public void processPlayerCards(int playerIndex) {
         } else {
             System.out.println("\nYou can use only cards with the same color or number.");
             System.out.println("\nEnter the cards number:");
-            playerInput = playerScanner.nextLine();
+            playerInput = playerScanner.nextLine().trim();
             while (!isNumeric(playerInput)) {
                 System.out.println("\nDon't enter letters or empty lines:");
-                playerInput = playerScanner.nextLine();
+                playerInput = playerScanner.nextLine().trim();
             }
             playerCardString = Integer.parseInt(playerInput) - 1;
         }
@@ -217,8 +217,8 @@ public void writingIntoRecordTable(int winnerIndex) {
             if (row.get(0).equalsIgnoreCase(name)) {
                 int existingPoints = Integer.parseInt(row.get(1));
                 int existingWins = Integer.parseInt(row.get(2));
-                row.set(1, String.valueOf(existingPoints + newPoints));
-                row.set(2, String.valueOf(existingWins + newWins));
+                row.set(1, String.valueOf(newPoints));
+                row.set(2, String.valueOf(newWins));
                 found = true;
                 break;
             }
