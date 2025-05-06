@@ -20,10 +20,20 @@ Jums un datoram/draugiem būs izdotas 10 kārtes un uzvarēs tas, kurš pirmais 
 
 - #### Ja jums rokās ir atbilstoša kārts, jūs drīkstat izspēlēt to, novietojot uz atmesto kāršu kavas.
 
-    1. Jūs drīkstat izspēlēt tikai tādu kārti, kas atbilst vismaz vienam elementam uz atmesto kāršu kavas augšējas kārts: krāsai, skaitlim vai simbolam.
-    2. Ja jūs izspēlējat darbības kārti, seko atbilstošā darbība!
+    1. Jūs drīkstat izspēlēt tikai tādu kārti, kas atbilst vismaz vienam elementam uz atmesto kāršu kavas augšējas kārts: krāsai vai skaitlim.
+   
 
-- #### Ja jums nav atbilstošas kārts, paceliet vienu kārti no kāršu kaudzītes.
+- #### Ja jums nav atbilstošas kārts, būs iedotas kārtis, līdz brīdim kad jūs nesaņemsiet atbilstošo.
 
-    1. Ja jūsu paceltā kārtis ir atbilstoša, tad drīkstat to izspēlēt.
-    2. Jūs drīkstāt arī pacelt kārti, nevis izspēlēt kādu no kārtīm pat tad, ja jums rokās ir atbilstoša kārts.
+
+## Rekordu tabulas
+
+### Ir trīs tabulas:
+
+   1. Vienspēlētāju režīma tabula (tikai jūsu un datora rezultāti)
+   2. Daudzspēlētāju režīma tabula (Visus spēlētājus, kuri spēlēja rezultāti)
+   3. Kopēja tabula (Visus spēlētājus no visiem režīmiem rezultāti)
+
+- #### Katru tabulu var sakartot vai nu pēc punktu skaita vai pēc uzvaras skaita.
+
+    
