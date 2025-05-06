@@ -74,11 +74,15 @@ public static void mainGame(){
 
                 singlePlayer.computerHasValidMove();
                 singlePlayer.processComputerCards();
+                for (int i = 0; i < 100; i++) {
+                     System.out.println("\n");
+                }
                 System.out.print("\nCards: ");
                 System.out.println(cards.getLast());
 
                 if (computerCards.size() == 0) {
                     System.out.println("\nComputer won!");
+                    singlePlayer.computerWinCount += 1;
                     singlePlayer.writingIntoRecordTable();
                     singlePlayer.updatePlayerWin(singlePlayer.playerName, singlePlayer.playerPoints, singlePlayer.playerWinCount);
                     Helper.recordTable("SinglePlayerTable.csv");

@@ -44,7 +44,12 @@ int playersCount = 0;
 
 public void setupPlayers() {
     System.out.println("Enter number of players:");
-    playersCount = Integer.parseInt(playerScanner.nextLine());
+    String playersCountInput = (playerScanner.nextLine());
+    while (!isNumeric(playersCountInput)) {
+        System.out.println("\nDon't enter letters or empty lines:");
+        playersCountInput = playerScanner.nextLine().trim();
+    }
+    playersCount = Integer.parseInt(playersCountInput);
 
     for (int i = 0; i < playersCount; i++) {
         System.out.println("Enter player " + (i + 1) + " name:");
@@ -147,6 +152,7 @@ public void processPlayerCards(int playerIndex) {
             playerCardString = Integer.parseInt(playerInput) - 1;
         }
     }
+
 }
 
 
@@ -189,15 +195,6 @@ public void drawCardUntilValid(ArrayList<Card> targetPlayerCards) {
 public void writingIntoRecordTable(int winnerIndex) {
     ArrayList<ArrayList<String>> recordsList = new ArrayList<>();
 
-    
-    try {
-        List<String[]> rawRecords = Helper.readCsv("MultiPlayerTable.csv");
-        for (String[] row : rawRecords) {
-            recordsList.add(new ArrayList<>(List.of(row)));
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
 
    
     if (recordsList.isEmpty()) {
@@ -215,8 +212,6 @@ public void writingIntoRecordTable(int winnerIndex) {
 
         for (ArrayList<String> row : recordsRows) {
             if (row.get(0).equalsIgnoreCase(name)) {
-                int existingPoints = Integer.parseInt(row.get(1));
-                int existingWins = Integer.parseInt(row.get(2));
                 row.set(1, String.valueOf(newPoints));
                 row.set(2, String.valueOf(newWins));
                 found = true;
@@ -255,16 +250,11 @@ public void writingIntoRecordTable(int winnerIndex) {
     ArrayList<ArrayList<String>> finalData = new ArrayList<>();
     finalData.addAll(recordsRows);
 
-    try {
-        Helper.writeRecordTable("MultiPlayerTable.csv", finalData, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-
   try {
       ArrayList<ArrayList<String>> header = new ArrayList<>();
-      header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
+      header.clear();
 
+      header.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
       Helper.writeRecordTable("MultiPlayerTable.csv", header, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
       Helper.writeRecordTable("MultiPlayerTable.csv", finalData, StandardOpenOption.APPEND);
 
@@ -304,7 +294,6 @@ public void updatePlayersWin(List<String> playerNames, List<Integer> playerPoint
                     row.set(1, String.valueOf(oldPoints + points));
                     row.set(2, String.valueOf(oldWins + (isWinner ? 1 : 0)));
                     found = true;
-                    break;
                 }
             }
 

@@ -41,6 +41,8 @@ Card card;
 
 int computerPoints = 0;
 
+int computerWinCount = 0;
+
 int playerPoints = 0;
 
 int playerWinCount = 0;
@@ -85,7 +87,6 @@ public void processComputerCards() {
 }
 
 public void processPlayerCards() {
-    
     System.out.print("\nPlayer's cards: ");
     playerCards.forEach( (n) -> {System.out.print(String.valueOf(playerCards.indexOf(n) + 1) + ". " + n + "  "); } );
 
@@ -142,7 +143,7 @@ public void processPlayerCards() {
 
           System.out.println("\nYou can use only cards with the same color or number.");
           System.out.println("\nEnter the cards number:");
-          playerInput = playerScanner.nextLine();
+          playerInput = playerScanner.nextLine().trim();
           while (!isNumeric(playerInput)) {
             System.out.println("\nDon't enter letters or empty lines:");
             playerInput = playerScanner.nextLine().trim();
@@ -151,8 +152,6 @@ public void processPlayerCards() {
         
       }
     }
-      
-    
 }
 
 
@@ -237,6 +236,7 @@ public void writingIntoRecordTable() {
 
     row1.add("Computer");
     row1.add(String.valueOf(computerPoints));
+    row1.add(String.valueOf(computerWinCount));
     dataToWrite.add(row1);
 
     
@@ -265,11 +265,6 @@ public void writingIntoRecordTable() {
         recordsList.add(new ArrayList<>(List.of("Name", "Points", "Wins")));
     }
 
-    ArrayList<String> headerRecord = recordsList.get(0);
-    List<ArrayList<String>> recordsRows = recordsList.subList(1, recordsList.size());
-
-    boolean found = false;
-    int playerWins = 0;
 
     ArrayList<String> row2 = new ArrayList<>();
     row2.clear();
