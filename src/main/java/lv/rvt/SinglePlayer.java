@@ -281,7 +281,7 @@ public void writingIntoRecordTable() {
     
       while (true) {
 
-        sortInput = tableSortTypeInput.nextLine();
+        sortInput = tableSortTypeInput.nextLine().trim().toUpperCase();
 
         if (sortInput.equals("P")) {
             // sort by points

@@ -21,7 +21,7 @@ public static void mainGame(){
 
     while (true) {
 
-        String command = scanner.nextLine().trim();
+        String command = scanner.nextLine().trim().toUpperCase();
     
 
     if (command.equals("S")) {
@@ -111,7 +111,7 @@ public static void mainGame(){
 
         System.out.println("Would you like to sort by points or by wins?");
         System.out.println("(P - points, W -wins)");
-        String sortCommand = scanner.nextLine().trim();
+        String sortCommand = scanner.nextLine().trim().toUpperCase();
         Helper.sortRecordsInCsv("RecordsDataBase.csv", sortCommand);
         
         Helper.recordTable("RecordsDataBase.csv");
