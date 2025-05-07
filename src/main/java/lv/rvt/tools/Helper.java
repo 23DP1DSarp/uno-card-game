@@ -57,7 +57,7 @@ public class Helper {
             String[] headers = data.get(0);
             List<String[]> rows = data.subList(1, data.size());
     
-            // Format and print table
+            
             printFormattedTable(rows, headers);
     
         } catch (IOException e) {

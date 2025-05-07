@@ -49,6 +49,10 @@ public void setupPlayers() {
         System.out.println("\nDon't enter letters or empty lines:");
         playersCountInput = playerScanner.nextLine().trim();
     }
+    while (Integer.valueOf(playersCountInput) < 2) {
+        System.out.println("You need at least 2 players to play.");
+        playersCountInput = playerScanner.nextLine().trim();
+    }
     playersCount = Integer.parseInt(playersCountInput);
 
     for (int i = 0; i < playersCount; i++) {

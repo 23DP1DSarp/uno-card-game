@@ -69,7 +69,7 @@ public void processComputerCards() {
            
           if (computerCards.get(b).color == cards.get(cards.size() - 1).color) {
                 
-              computerPoints = computerPoints + computerCards.get(b).number;
+                computerPoints = computerPoints + computerCards.get(b).number;
                 cards.add(computerCards.get(b));
                 computerCards.remove(computerCards.get(b));
                 break;
