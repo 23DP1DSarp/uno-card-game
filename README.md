@@ -32,8 +32,20 @@ Jums un datoram/draugiem būs izdotas 10 kārtes un uzvarēs tas, kurš pirmais 
 
    1. Vienspēlētāju režīma tabula (tikai jūsu un datora rezultāti)
    2. Daudzspēlētāju režīma tabula (Visus spēlētājus, kuri spēlēja rezultāti)
-   3. Kopēja tabula (Visus spēlētājus no visiem režīmiem rezultāti)
+   3. Kopīgā tabula (Visus spēlētājus no visiem režīmiem rezultāti)
 
 - #### Katru tabulu var sakartot vai nu pēc punktu skaita vai pēc uzvaras skaita.
+
+- #### Ja jūsu vārds ir kopīgā tabulā, tad jūsu rekords būs saglabāts kopā ar izmaiņām.
+
+
+## Kā palaist spēli
+
+1. Jums ir jābūt datorā instalēts Java SE Development Kit 24.0.1: https://www.oracle.com/java/technologies/downloads/?er=221886#jdk24-windows
+
+2. Atvērt projekta lapu un lejupielādēt spēli: https://23dp1dsarp.github.io/uno-card-website/
+
+3. Atvērt terminālā mapi, kur atrodas fails un ievadīt komandu 'jar -jar uno-card-game.jar' (pēdiņas nav jārakstā)
+
 
     
