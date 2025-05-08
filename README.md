@@ -45,7 +45,7 @@ Jums un datoram/draugiem būs izdotas 10 kārtes un uzvarēs tas, kurš pirmais 
 
 2. Atvērt projekta lapu un lejupielādēt spēli: https://23dp1dsarp.github.io/uno-card-website/
 
-3. Atvērt terminālā mapi, kur atrodas fails un ievadīt komandu 'jar -jar uno-card-game.jar' (pēdiņas nav jārakstā)
+3. Atvērt terminālā mapi, kur atrodas fails un ievadīt komandu 'java -jar uno-card-game.jar' (pēdiņas nav jārakstā)
 
 
     
